@@ -43,7 +43,7 @@ export class EditInspectionComponent implements OnInit {
         closeModalBtn.click();
       }
 
-      var showAddSucess = document.getElementById('add-sucess-alert');
+      var showAddSucess = document.getElementById('add-success-alert');
       if(showAddSucess){
         showAddSucess.style.display= "block";
       }
@@ -56,6 +56,28 @@ export class EditInspectionComponent implements OnInit {
   }
 
   updateInspection(){
+    var inspection = {
+      id: this.id,
+      status:this.status,
+      comments:this.comments,
+      inspectionTypeId:this.inspectionTypeId
+    }
+    var id:number = this.id;
+    this.service.atualizar(id,inspection).subscribe(res => {
+      var closeModalBtn = document.getElementById('add-edit-modal-close');
+      if(closeModalBtn) {
+        closeModalBtn.click();
+      }
 
+      var showUpdateSuccess = document.getElementById('update-success-alert');
+      if(showUpdateSuccess) {
+        showUpdateSuccess.style.display = "block";
+      }
+      setTimeout(function() {
+        if(showUpdateSuccess) {
+          showUpdateSuccess.style.display = "none"
+        }
+      }, 4000);
+    })
   }
 }

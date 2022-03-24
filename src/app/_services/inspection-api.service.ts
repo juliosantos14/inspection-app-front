@@ -15,15 +15,15 @@ export class InspectionApiService {
   }
 
   adicionar(data: any){
-    return this.http.post(this.inspectionApiUrl + '/inspection', data)
+    return this.http.post(this.inspectionApiUrl + '/inspections', data)
   }
 
   atualizar(id:number | string , data:any){
-    return this.http.put(this.inspectionApiUrl + '/inspection${id}', data)
+    return this.http.put(this.inspectionApiUrl + `/Inspections/${id}`, data)
   }
 
   deletar(id :number | string){
-    return this.http.delete(this.inspectionApiUrl+ '/inspection/${id}')
+    return this.http.delete(this.inspectionApiUrl+ `/Inspections/${id}`)
   }
 
   obterTodosTypes() : Observable<any[]>{
@@ -39,7 +39,7 @@ export class InspectionApiService {
   }
 
   deletarTypes(id :number | string){
-    return this.http.delete(this.inspectionApiUrl+ '/InspectionTypes/${id}')
+    return this.http.delete(this.inspectionApiUrl+ `/InspectionTypes/${id}`)
 }
 
 obterTodosStatus() : Observable<any[]>{
@@ -55,7 +55,7 @@ atualizarStatus(id:number | string , data:any){
 }
 
 deletarStatus(id :number | string){
-  return this.http.delete(this.inspectionApiUrl+ '/Status/${id}')
+  return this.http.delete(this.inspectionApiUrl+ `/Status/${id}`)
 }
 
 }

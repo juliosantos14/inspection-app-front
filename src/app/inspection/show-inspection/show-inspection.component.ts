@@ -27,6 +27,11 @@ export class ShowInspectionComponent implements OnInit {
   activateAddEditInspectionComponent: boolean = false;
   inspection:any;
 
+  modalClose(){
+    this.activateAddEditInspectionComponent = false;
+    this.inspectionList$ = this.service.obterTodos();
+  }
+
   modalAdd(){
     this.inspection={
       id:0,
@@ -36,6 +41,34 @@ export class ShowInspectionComponent implements OnInit {
     }
     this.modalTitle = "Add Inspection";
     this.activateAddEditInspectionComponent = true;
+  }
+
+  modalEdit(item:any) {
+    this.inspection = item;
+    this.modalTitle = "Edit Inspection";
+    this.activateAddEditInspectionComponent = true;
+  }
+
+  delete(item:any) {
+    if(confirm(`Are you sure you want to delete inspection ${item.id}`)) {
+      this.service.deletar(item.id).subscribe(res => {
+        var closeModalBtn = document.getElementById('add-edit-modal-close');
+      if(closeModalBtn) {
+        closeModalBtn.click();
+      }
+
+      var showDeleteSuccess = document.getElementById('delete-success-alert');
+      if(showDeleteSuccess) {
+        showDeleteSuccess.style.display = "block";
+      }
+      setTimeout(function() {
+        if(showDeleteSuccess) {
+          showDeleteSuccess.style.display = "none"
+        }
+      }, 4000);
+      this.inspectionList$ = this.service.obterTodos();
+      })
+    }
   }
 
   refreshInspectionTypesmMap(){
